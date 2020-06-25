@@ -1,10 +1,10 @@
 import httplib2
+
 import telebot
+from django.conf import settings
 
 
-token = '1250889151:AAGCQPWShYAnd4Cgark2X8XQdaztYlLw45k'
-
-bot = telebot.TeleBot(token)
+bot = telebot.TeleBot(settings.BOT_TOKEN)
 
 http_connect = httplib2.Http('.cache')
 
