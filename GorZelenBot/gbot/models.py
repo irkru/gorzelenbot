@@ -8,8 +8,9 @@ class TreeModel(models.Model):
     update_time = models.DateTimeField(auto_now=True)
     latitude = models.CharField(max_length=100)
     longitude = models.CharField(max_length=100)
-    img1 = models.ImageField(upload_to='uploads/TreeModel/', null=True, default=None)
-    img2 = models.ImageField(upload_to='uploads/TreeModel/', null=True, default=None)
-    img3 = models.ImageField(upload_to='uploads/TreeModel/', null=True, default=None)
-    img4 = models.ImageField(upload_to='uploads/TreeModel/', null=True, default=None)
+    img1 = models.ImageField(upload_to='uploads/TreeModel/', null=True, blank=True)
+    img2 = models.ImageField(upload_to='uploads/TreeModel/', null=True, blank=True)
+    img3 = models.ImageField(upload_to='uploads/TreeModel/', null=True, blank=True)
+    img4 = models.ImageField(upload_to='uploads/TreeModel/', null=True, blank=True)
+
 
