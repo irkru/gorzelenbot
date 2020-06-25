@@ -6,11 +6,11 @@ token = '1250889151:AAGCQPWShYAnd4Cgark2X8XQdaztYlLw45k'
 
 bot = telebot.TeleBot(token)
 
-http_connect = httplib2.Http('.cashe')
+http_connect = httplib2.Http('.cache')
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
-    mes = """Вас приветствует бот Горзеленхоза. 
+    mes = """Вас приветствует бот Горзеленхоза.
 
     Для того чтобы зарегистровать больное дерево:
 
@@ -60,4 +60,3 @@ def location(message):
 
 def get_url_image(tkn, image_path):
     return 'https://api.telegram.org/file/bot{}/{}'.format(tkn, image_path)
-    
