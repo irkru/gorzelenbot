@@ -2,6 +2,7 @@ import telebot
 from telebot import types
 
 import urllib.request
+import logging
 import os
 
 from django.core.files import File
@@ -10,6 +11,7 @@ from .models import UserModel, TreeModel
 from .messages import *
 
 bot = telebot.TeleBot(settings.BOT_TOKEN)
+log = logging.getLogger(__name__)
 
 
 def get_url_image(tkn, image_path):
@@ -21,6 +23,8 @@ def update_or_create_user(user):
     Создает пользователя, если его нет в базе данных, или обновляет его данные,
     если он есть
     """
+    log.debug('Creating user id=%d', user.id)
+
     update = {
         'is_bot': user.is_bot,
         'first_name': value_or_empty(user.first_name),
@@ -47,6 +51,13 @@ def get_or_create_tree(user):
 def value_or_empty(value):
     return value if value else ''
 
+
+def what_next(tree, last_event):
+    """
+    Проверяет, какие данные уже отправлены на текущий момент для дерева,
+    и подсказывает пользователю, что отправить еще
+    """
+    return ''
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -128,7 +139,10 @@ def photo(message):
         msg = 'Последняя фотография не была сохранена, можно сохранить только 4 фотографии'
 
     tree.save()
-    bot.send_message(message.chat.id, msg, reply_markup=keyboard())
+    reply_message = what_next(tree, 'photo_uploaded')
+
+    bot.send_message(message.chat.id, msg+'\n'+reply_message, reply_markup=keyboard())
+
 
 
 @bot.message_handler(content_types=["location"])
